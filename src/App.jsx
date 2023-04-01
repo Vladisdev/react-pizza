@@ -4,6 +4,8 @@ import Categories from './components/Categories';
 import Sort from './components/Sort';
 import Header from './components/layout/Header';
 
+import { products } from './data/data';
+
 function App() {
 	return (
 		<div className='wrapper'>
@@ -16,11 +18,9 @@ function App() {
 					</div>
 					<h2 className='content__title'>Все пиццы</h2>
 					<div className='content__items'>
-						<Card />
-						<Card />
-						<Card />
-						<Card />
-						<Card />
+						{products.map(product => (
+							<Card {...product} />
+						))}
 					</div>
 				</div>
 			</div>

@@ -1,28 +1,48 @@
+import { useState } from 'react';
+
 import style from './Card.module.scss';
 
-const Card = () => {
+const Card = ({ imageUrl, title, price, sizes, types }) => {
+	const [cartCount, setCartCount] = useState(0);
+	const [activeSizeId, setActiveSizeId] = useState(0);
+	const [activeTypeId, setActiveTypeId] = useState(0);
+
 	return (
 		<div className={style.card}>
 			<img
 				className={style.card__image}
-				src='https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg'
+				src={imageUrl}
 				alt='Pizza'
 			/>
-			<h4 className={style.card__title}>Чизбургер-пицца</h4>
+			<h4 className={style.card__title}>{title}</h4>
 			<div className={style.card__selector}>
 				<ul>
-					<li className={style.active}>тонкое</li>
-					<li>традиционное</li>
+					{types.map((typeId, index) => (
+						<li
+							className={activeTypeId === index ? style.active : null}
+							onClick={() => setActiveTypeId(index)}
+						>
+							{typeId === 0 ? 'тонкое' : 'традиционное'}
+						</li>
+					))}
 				</ul>
 				<ul>
-					<li className={style.active}>26 см.</li>
-					<li>30 см.</li>
-					<li>40 см.</li>
+					{sizes.map((size, index) => (
+						<li
+							className={activeSizeId === index ? style.active : null}
+							onClick={() => setActiveSizeId(index)}
+						>
+							{size} см.
+						</li>
+					))}
 				</ul>
 			</div>
 			<div className={style.card__bottom}>
-				<div className={style.card__price}>от 395 ₽</div>
-				<div className='button button--outline button--add'>
+				<div className={style.card__price}>от {price} ₽</div>
+				<button
+					onClick={() => setCartCount(cartCount + 1)}
+					className='button button--outline button--add'
+				>
 					<svg
 						width='12'
 						height='12'
@@ -36,8 +56,8 @@ const Card = () => {
 						/>
 					</svg>
 					<span>Добавить</span>
-					<i>2</i>
-				</div>
+					<i>{cartCount}</i>
+				</button>
 			</div>
 		</div>
 	);
