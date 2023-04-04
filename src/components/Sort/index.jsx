@@ -1,8 +1,18 @@
+import { useState } from 'react';
+
 import style from './Sort.module.scss';
 
+const sortList = ['популярности', 'цене', 'алфавиту'];
+
 const Sort = () => {
+	const [isPopupOpened, setIsPopupOpened] = useState(false);
+	const [activeSort, setActiveSort] = useState(sortList[0]);
+
 	return (
-		<div className={style.sort}>
+		<div
+			onClick={() => setIsPopupOpened(!isPopupOpened)}
+			className={style.sort}
+		>
 			<div className={style.sort__label}>
 				<svg
 					width='10'
@@ -17,15 +27,23 @@ const Sort = () => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span>популярности</span>
+				<span>{activeSort}</span>
 			</div>
-			<div className={style.sort__popup}>
-				<ul>
-					<li className={style.active}>популярности</li>
-					<li>цене</li>
-					<li>алфавиту</li>
-				</ul>
-			</div>
+			{isPopupOpened && (
+				<div className={style.sort__popup}>
+					<ul>
+						{sortList.map(item => (
+							<li
+								key={item}
+								className={activeSort === item ? style.active : null}
+								onClick={() => setActiveSort(item)}
+							>
+								{item}
+							</li>
+						))}
+					</ul>
+				</div>
+			)}
 		</div>
 	);
 };

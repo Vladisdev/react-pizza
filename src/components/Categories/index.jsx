@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import { categories } from '../../data/data';
+
 import style from './Categories.module.scss';
+
+const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
 const Categories = () => {
 	const [activeCategoryId, setActiveCategoryId] = useState(0);
@@ -10,10 +12,11 @@ const Categories = () => {
 			<ul>
 				{categories.map((category, index) => (
 					<li
+						key={category}
 						className={activeCategoryId === index ? style.active : null}
 						onClick={() => setActiveCategoryId(index)}
 					>
-						{category.title}
+						{category}
 					</li>
 				))}
 			</ul>

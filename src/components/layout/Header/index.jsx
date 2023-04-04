@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Logo from '../../../assets/img/pizza-logo.svg';
 import style from './Header.module.scss';
 
@@ -5,20 +6,22 @@ const Header = () => {
 	return (
 		<div className={style.header}>
 			<div className={style.container}>
-				<div className={style.header__logo}>
-					<img
-						width='38'
-						src={Logo}
-						alt='Logo'
-					/>
-					<div>
-						<h1>React Pizza</h1>
-						<p>Самая вкусная пицца во вселенной</p>
+				<Link to={'/'}>
+					<div className={style.header__logo}>
+						<img
+							width='38'
+							src={Logo}
+							alt='Logo'
+						/>
+						<div>
+							<h1>React Pizza</h1>
+							<p>Самая вкусная пицца во вселенной</p>
+						</div>
 					</div>
-				</div>
+				</Link>
 				<div className={style.header__cart}>
-					<a
-						href='/cart.html'
+					<Link
+						to={'/cart'}
 						className='button button--cart'
 					>
 						<span>520 ₽</span>
@@ -53,7 +56,7 @@ const Header = () => {
 							/>
 						</svg>
 						<span>3</span>
-					</a>
+					</Link>
 				</div>
 			</div>
 		</div>

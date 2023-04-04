@@ -19,6 +19,7 @@ const Card = ({ imageUrl, title, price, sizes, types }) => {
 				<ul>
 					{types.map((typeId, index) => (
 						<li
+							key={typeId}
 							className={activeTypeId === index ? style.active : null}
 							onClick={() => setActiveTypeId(index)}
 						>
@@ -29,6 +30,7 @@ const Card = ({ imageUrl, title, price, sizes, types }) => {
 				<ul>
 					{sizes.map((size, index) => (
 						<li
+							key={size}
 							className={activeSizeId === index ? style.active : null}
 							onClick={() => setActiveSizeId(index)}
 						>
