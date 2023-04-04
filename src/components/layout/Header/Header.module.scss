@@ -5,13 +5,35 @@
 	padding: 40px 0;
 
 	.container {
-		// TODO: delete these two lines when find the way to optimize it
 		width: 90%;
 		margin: 0 auto;
 
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+
+		@media screen and (max-width: 650px) {
+			flex-direction: column-reverse;
+			align-items: center;
+
+			.header__logo {
+				margin-top: 35px;
+
+				@media screen and (max-width: 367px) {
+					h1 {
+						font-size: 16px;
+					}
+
+					p {
+						font-size: 14px;
+					}
+				}
+			}
+
+			div:nth-child(2) {
+				margin: 0 auto;
+			}
+		}
 	}
 
 	&__logo {

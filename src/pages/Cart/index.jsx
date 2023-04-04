@@ -1,12 +1,8 @@
-import CartEmpty from '../../components/CartEmpty';
-import style from './Cart.module.scss';
+import CartExisting from '../../components/CartExisting';
 
 const Cart = () => {
-	return (
-		<div class={style.containerCart}>
-			<CartEmpty />
-		</div>
-	);
+	// return <CartEmpty />;
+	return <CartExisting />;
 };
 
 export default Cart;

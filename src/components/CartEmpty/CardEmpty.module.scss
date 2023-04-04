@@ -1,13 +1,20 @@
 @import '../../assets/styles/mixins';
 
 .cartEmpty {
-	margin: 0 auto;
-	width: 560px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
 	text-align: center;
 
 	h2 {
 		font-size: 32px;
 		margin-bottom: 10px;
+
+		@media screen and (max-width: 440px) {
+			font-size: 20px;
+		}
 	}
 
 	p {
@@ -15,16 +22,15 @@
 		line-height: 145.4%;
 		letter-spacing: 0.01em;
 		color: #777777;
-	}
 
-	icon {
-		position: relative;
-		top: 2px;
+		@media screen and (max-width: 560px) {
+			font-size: 13px;
+		}
 	}
 
 	img {
 		display: block;
-		width: 300px;
+		max-width: 35%;
 		margin: 45px auto 60px;
 	}
 
@@ -42,6 +48,11 @@
 		&:hover,
 		&:active {
 			background-color: #3d3d3d;
+		}
+
+		@media screen and (max-width: 430px) {
+			width: 150px;
+			font-size: 15px;
 		}
 	}
 }
