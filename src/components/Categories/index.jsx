@@ -1,20 +1,16 @@
-import { useState } from 'react';
-
 import style from './Categories.module.scss';
 
 const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
 
-const Categories = () => {
-	const [activeCategoryId, setActiveCategoryId] = useState(0);
-
+const Categories = ({ activeCategory, onClickCategory }) => {
 	return (
 		<div className={style.categories}>
 			<ul>
 				{categories.map((category, index) => (
 					<li
 						key={category}
-						className={activeCategoryId === index ? style.active : null}
-						onClick={() => setActiveCategoryId(index)}
+						className={activeCategory === index ? style.active : null}
+						onClick={() => onClickCategory(index)}
 					>
 						{category}
 					</li>

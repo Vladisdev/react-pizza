@@ -2,11 +2,14 @@ import { useState } from 'react';
 
 import style from './Sort.module.scss';
 
-const sortList = ['популярности', 'цене', 'алфавиту'];
+const sortList = [
+	{ name: 'популярности', sortProperty: 'rating' },
+	{ name: 'цене', sortProperty: 'price' },
+	{ name: 'алфавиту', sortProperty: 'title' },
+];
 
-const Sort = () => {
+const Sort = ({ activeSort, onClickSort, orderSort, onClickOrderSort }) => {
 	const [isPopupOpened, setIsPopupOpened] = useState(false);
-	const [activeSort, setActiveSort] = useState(sortList[0]);
 
 	return (
 		<div
@@ -34,13 +37,27 @@ const Sort = () => {
 					<ul>
 						{sortList.map(item => (
 							<li
-								key={item}
-								className={activeSort === item ? style.active : null}
-								onClick={() => setActiveSort(item)}
+								key={item.name}
+								className={activeSort === item.name ? style.active : null}
+								onClick={() => onClickSort(item)}
 							>
-								{item}
+								{item.name}
 							</li>
 						))}
+					</ul>
+					<ul>
+						<li
+							className={orderSort === 'asc' ? style.active : null}
+							onClick={() => onClickOrderSort('asc')}
+						>
+							↑
+						</li>
+						<li
+							className={orderSort === 'desc' ? style.active : null}
+							onClick={() => onClickOrderSort('desc')}
+						>
+							↓
+						</li>
 					</ul>
 				</div>
 			)}

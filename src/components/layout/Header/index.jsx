@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from '../../../assets/img/pizza-logo.svg';
+import Search from '../../Search';
 import style from './Header.module.scss';
 
 const Header = () => {
@@ -19,6 +20,7 @@ const Header = () => {
 						</div>
 					</div>
 				</Link>
+				<Search />
 				<div className={style.header__cart}>
 					<Link
 						to={'/cart'}
