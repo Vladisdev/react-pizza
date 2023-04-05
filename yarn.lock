@@ -10434,7 +10434,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -10645,17 +10645,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-paginate@npm:^8.1.5":
-  version: 8.1.5
-  resolution: "react-paginate@npm:8.1.5"
-  dependencies:
-    prop-types: ^15
-  peerDependencies:
-    react: ^16 || ^17 || ^18
-  checksum: c808ab046e036605f37c12ef3b06b41fa882a2bc1e27fe29f9db968d7018887aa0573941c23f7e5e41cde9344fb70e6ee686c047d12c9bf89f353a75dbb47a8f
-  languageName: node
-  linkType: hard
-
 "react-pizza@workspace:.":
   version: 0.0.0-use.local
   resolution: "react-pizza@workspace:."
@@ -10669,7 +10658,6 @@ __metadata:
     react: ^18.2.0
     react-content-loader: ^6.2.1
     react-dom: ^18.2.0
-    react-paginate: ^8.1.5
     react-router-dom: 6
     react-scripts: 5.0.1
     sass: ^1.60.0

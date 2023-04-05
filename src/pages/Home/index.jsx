@@ -4,7 +4,6 @@ import Card from '../../components/Card';
 import Skeleton from '../../components/Card/Skeleton';
 import Categories from '../../components/Categories';
 import NotFoundProducts from '../../components/NotFoundProducts';
-import Pagination from '../../components/Pagination';
 import Sort from '../../components/Sort';
 
 import { SearchContext } from '../../App';
@@ -31,7 +30,7 @@ const Home = () => {
 			try {
 				setIsLoading(true);
 				await fetch(
-					`https://642adecbb11efeb759a50961.mockapi.io/items?page=${currentPage}&limit=4${category}&sortBy=${sort}&order=${orderSort}&${search}`
+					`https://642adecbb11efeb759a50961.mockapi.io/items?page=${currentPage}&${category}&sortBy=${sort}&order=${orderSort}&${search}`
 				)
 					.then(response => response.json())
 					.then(json => setProducts(json));
@@ -44,6 +43,8 @@ const Home = () => {
 
 		fetchData();
 	}, [activeCategory, activeSort, orderSort, searchValue, currentPage]);
+
+	console.log(products);
 
 	const skeletons = [...Array(8)].map((_, index) => <Skeleton key={index} />);
 	const productItems = products.map(product => (
@@ -75,8 +76,6 @@ const Home = () => {
 			) : (
 				<NotFoundProducts />
 			)}
-
-			<Pagination onChangePage={number => setCurrentPage(number)} />
 		</div>
 	);
 };
