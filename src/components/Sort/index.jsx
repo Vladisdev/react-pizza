@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { setSortOrder, setSortType } from '../../redux/slices/filterSlice';
 import style from './Sort.module.scss';
 
 const sortList = [
@@ -8,7 +10,11 @@ const sortList = [
 	{ name: 'алфавиту', sortProperty: 'title' },
 ];
 
-const Sort = ({ activeSort, onClickSort, orderSort, onClickOrderSort }) => {
+const Sort = () => {
+	const dispatch = useDispatch();
+
+	const { activeSort, orderSort } = useSelector(state => state.filter);
+
 	const [isPopupOpened, setIsPopupOpened] = useState(false);
 
 	return (
@@ -30,7 +36,7 @@ const Sort = ({ activeSort, onClickSort, orderSort, onClickOrderSort }) => {
 					/>
 				</svg>
 				<b>Сортировка по:</b>
-				<span>{activeSort}</span>
+				<span>{activeSort.name}</span>
 			</div>
 			{isPopupOpened && (
 				<div className={style.sort__popup}>
@@ -38,8 +44,15 @@ const Sort = ({ activeSort, onClickSort, orderSort, onClickOrderSort }) => {
 						{sortList.map(item => (
 							<li
 								key={item.name}
-								className={activeSort === item.name ? style.active : null}
-								onClick={() => onClickSort(item)}
+								className={activeSort.name === item.name ? style.active : null}
+								onClick={() =>
+									dispatch(
+										setSortType({
+											name: item.name,
+											sortProperty: item.sortProperty,
+										})
+									)
+								}
 							>
 								{item.name}
 							</li>
@@ -48,13 +61,13 @@ const Sort = ({ activeSort, onClickSort, orderSort, onClickOrderSort }) => {
 					<ul>
 						<li
 							className={orderSort === 'asc' ? style.active : null}
-							onClick={() => onClickOrderSort('asc')}
+							onClick={() => dispatch(setSortOrder('asc'))}
 						>
 							↑
 						</li>
 						<li
 							className={orderSort === 'desc' ? style.active : null}
-							onClick={() => onClickOrderSort('desc')}
+							onClick={() => dispatch(setSortOrder('desc'))}
 						>
 							↓
 						</li>

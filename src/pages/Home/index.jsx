@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Card from '../../components/Card';
 import Skeleton from '../../components/Card/Skeleton';
@@ -7,30 +8,33 @@ import NotFoundProducts from '../../components/NotFoundProducts';
 import Sort from '../../components/Sort';
 
 import { SearchContext } from '../../App';
+import { setCategoryId } from '../../redux/slices/filterSlice';
 
 const Home = () => {
+	const dispatch = useDispatch();
+
+	const { activeCategoryId, activeSort, orderSort } = useSelector(
+		state => state.filter
+	);
+
 	const { searchValue } = useContext(SearchContext);
 
 	const [products, setProducts] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const [activeCategory, setActiveCategory] = useState(0);
-	const [activeSort, setActiveSort] = useState({
-		name: 'популярности',
-		sortProperty: 'rating',
-	});
-	const [orderSort, setOrderSort] = useState('desc');
-	const [currentPage, setCurrentPage] = useState(1);
+
+	const onClickCategory = id => {
+		dispatch(setCategoryId(id));
+	};
 
 	useEffect(() => {
-		const category = activeCategory > 0 ? `category=${activeCategory}` : '';
-		const sort = activeSort.sortProperty;
+		const category = activeCategoryId > 0 ? `category=${activeCategoryId}` : '';
 		const search = searchValue ? `search=${searchValue}` : '';
 
 		async function fetchData() {
 			try {
 				setIsLoading(true);
 				await fetch(
-					`https://642adecbb11efeb759a50961.mockapi.io/items?page=${currentPage}&${category}&sortBy=${sort}&order=${orderSort}&${search}`
+					`https://642adecbb11efeb759a50961.mockapi.io/items?${category}&sortBy=${activeSort}&order=${orderSort}&${search}`
 				)
 					.then(response => response.json())
 					.then(json => setProducts(json));
@@ -42,9 +46,7 @@ const Home = () => {
 		}
 
 		fetchData();
-	}, [activeCategory, activeSort, orderSort, searchValue, currentPage]);
-
-	console.log(products);
+	}, [activeCategoryId, activeSort, orderSort, searchValue]);
 
 	const skeletons = [...Array(8)].map((_, index) => <Skeleton key={index} />);
 	const productItems = products.map(product => (
@@ -58,15 +60,10 @@ const Home = () => {
 		<div className='container'>
 			<div className='content__top'>
 				<Categories
-					activeCategory={activeCategory}
-					onClickCategory={id => setActiveCategory(id)}
+					activeCategory={activeCategoryId}
+					onClickCategory={onClickCategory}
 				/>
-				<Sort
-					activeSort={activeSort.name}
-					orderSort={orderSort}
-					onClickSort={sort => setActiveSort(sort)}
-					onClickOrderSort={value => setOrderSort(value)}
-				/>
+				<Sort />
 			</div>
 			<h2 className='content__title'>Все пиццы</h2>
 			{productItems.length > 0 ? (
