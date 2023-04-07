@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Card from '../../components/Card';
@@ -7,17 +7,15 @@ import Categories from '../../components/Categories';
 import NotFoundProducts from '../../components/NotFoundProducts';
 import Sort from '../../components/Sort';
 
-import { SearchContext } from '../../App';
+import axios from 'axios';
 import { setCategoryId } from '../../redux/slices/filterSlice';
 
 const Home = () => {
 	const dispatch = useDispatch();
-
 	const { activeCategoryId, activeSort, orderSort } = useSelector(
 		state => state.filter
 	);
-
-	const { searchValue } = useContext(SearchContext);
+	const searchValue = useSelector(state => state.search.value);
 
 	const [products, setProducts] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
@@ -33,11 +31,11 @@ const Home = () => {
 		async function fetchData() {
 			try {
 				setIsLoading(true);
-				await fetch(
-					`https://642adecbb11efeb759a50961.mockapi.io/items?${category}&sortBy=${activeSort}&order=${orderSort}&${search}`
-				)
-					.then(response => response.json())
-					.then(json => setProducts(json));
+				axios
+					.get(
+						`https://642adecbb11efeb759a50961.mockapi.io/items?${category}&sortBy=${activeSort.sortProperty}&order=${orderSort}&${search}`
+					)
+					.then(response => setProducts(response.data));
 
 				setIsLoading(false);
 			} catch (err) {
