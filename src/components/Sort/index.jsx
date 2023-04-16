@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setSortOrder, setSortType } from '../../redux/slices/filterSlice';
 import style from './Sort.module.scss';
 
-const sortList = [
+export const sortList = [
 	{ name: 'популярности', sortProperty: 'rating' },
 	{ name: 'цене', sortProperty: 'price' },
 	{ name: 'алфавиту', sortProperty: 'title' },
@@ -16,11 +16,27 @@ const Sort = () => {
 	const { activeSort, orderSort } = useSelector(state => state.filter);
 
 	const [isPopupOpened, setIsPopupOpened] = useState(false);
+	const sortRef = useRef(null);
+
+	useEffect(() => {
+		// если кликнули вне области элемента сортировки, то закрываем его
+		const handleClickOutside = event => {
+			if (!event.composedPath().includes(sortRef.current)) {
+				setIsPopupOpened(false);
+			}
+		};
+
+		document.body.addEventListener('click', handleClickOutside);
+
+		// Component will unmount
+		return () => document.body.removeEventListener('click', handleClickOutside);
+	}, []);
 
 	return (
 		<div
 			onClick={() => setIsPopupOpened(!isPopupOpened)}
 			className={style.sort}
+			ref={sortRef}
 		>
 			<div className={style.sort__label}>
 				<svg

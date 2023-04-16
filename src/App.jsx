@@ -1,9 +1,9 @@
 import './assets/styles/App.scss';
 
-import { createContext, useState } from 'react';
+import { createContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Header from './components/layout/Header';
+import Header from './components/Header';
 
 import Cart from './pages/Cart';
 import Home from './pages/Home';
