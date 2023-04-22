@@ -1,19 +1,20 @@
 import { useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
 import { addItem, cartItemByIdSelector } from '../../redux/slices/cartSlice';
 
 import style from './Card.module.scss';
 
 const Card = ({ id, imageUrl, title, price, sizes, types }) => {
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
   const cartItem = useSelector(cartItemByIdSelector(id));
-
-  const addedCount = cartItem ? cartItem.count : 0;
 
   const [activeSizeId, setActiveSizeId] = useState(0);
   const [activeTypeId, setActiveTypeId] = useState(0);
 
+  const addedCount = cartItem ? cartItem.count : 0;
   const type = activeTypeId === 0 ? 'тонкое' : 'традиционное';
   const size = sizes[activeSizeId];
 
@@ -83,6 +84,15 @@ const Card = ({ id, imageUrl, title, price, sizes, types }) => {
           <i>{addedCount}</i>
         </button>
       </div>
+      {pathname.includes('/product') ? null : (
+        <div className={style.card__details}>
+          <Link to={`/product/${id}`}>
+            <button className='button'>
+              <span>Подробнее</span>
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
