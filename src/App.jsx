@@ -8,29 +8,30 @@ import Cart from './pages/Cart';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import ProductDetails from './pages/ProductDetails';
+import { FC, JSXElementConstructor } from 'react';
 
 function App() {
   return (
     <Routes>
       <Route
         path='/'
-        element={<MainLayout />}
+        element={<MainLayout/>}
       >
         <Route
           path=''
-          element={<Home />}
+          element={<Home/>}
         />
         <Route
           path='/cart'
-          element={<Cart />}
+          element={<Cart/>}
         />
         <Route
           path='/product/:id'
-          element={<ProductDetails />}
+          element={<ProductDetails/>}
         />
         <Route
           path='*'
-          element={<NotFound />}
+          element={<NotFound/>}
         />
       </Route>
     </Routes>

@@ -6,9 +6,10 @@ import { addItem, cartItemByIdSelector } from '../../redux/slices/cartSlice';
 
 import style from './Card.module.scss';
 
-const Card = ({ id, imageUrl, title, price, sizes, types }) => {
+
+const Card = ({id, imageUrl, title, price, sizes, types}) => {
   const dispatch = useDispatch();
-  const { pathname } = useLocation();
+  const {pathname} = useLocation();
   const cartItem = useSelector(cartItemByIdSelector(id));
 
   const [activeSizeId, setActiveSizeId] = useState(0);
@@ -32,7 +33,7 @@ const Card = ({ id, imageUrl, title, price, sizes, types }) => {
 
   return (
     <div className={style.card}>
-      <img
+      <img  
         className={style.card__image}
         src={imageUrl}
         alt='Pizza'
